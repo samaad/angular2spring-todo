@@ -1,0 +1,108 @@
+<div class="generic-container">
+            <div class="panel panel-default">
+                <div class="panel-heading"><span class="lead">Add/Update Task</span></div>
+                <div class="panel-body">
+                    <div class="formcontainer">
+                        <div class="alert alert-success" role="alert" ng-if="ctrl.successMessage">{{ctrl.successMessage}}</div>
+                        <div class="alert alert-danger" role="alert" ng-if="ctrl.errorMessage">{{ctrl.errorMessage}}</div>
+                        <form ng-submit="ctrl.submit()" name="myForm" class="form-horizontal">
+                            <input type="hidden" ng-model="ctrl.user.id" />
+                            <div class="row">
+                                <div class="form-group col-md-12">
+                                    <label class="col-md-2 control-lable" for="user_name">Name</label>
+                                    <div class="col-md-7">
+                                        <input type="text" ng-model="ctrl.user.user_name" id="user_name" class="username form-control input-sm" placeholder="Enter your name" required ng-minlength="3"/>
+                                    </div>
+                                </div>
+                            </div>
+        
+                            <div class="row">
+                                <div class="form-group col-md-12">
+                                    <label class="col-md-2 control-lable" for="task_name">Task Name</label>
+                                    <div class="col-md-7">
+                                        <input type="text" ng-model="ctrl.user.task_name" id="task_name" class="form-control input-sm" placeholder="Enter Task Name." required/>
+                                    </div>
+                                </div>
+                            </div>
+            
+                            <div class="row">
+                                <div class="form-group col-md-12">
+                                    <label class="col-md-2 control-lable" for="task_status">Task Status</label>
+                                    <div class="col-md-7">
+                                        <input type="text" ng-model="ctrl.user.task_status" id="task_status" class="form-control input-sm" placeholder="Task Status" required/>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <!-- <div class="form-group col-md-6">
+                                    <label class="col-md-2 control-lable" for="task_date">Date</label>
+                                    <div class="col-md-7">
+                                        <input type="text" ng-model="ctrl.user.created_date" id="task_date" class="form-control input-sm" placeholder="Task Status" required/>
+                                    </div>
+                                </div> -->
+                                <div class="form-group col-md-6">
+                                    <label class="col-md-5 control-lable" for="task_date">Date</label>
+	                                <div class="input-group">
+							          <input type="text" class="form-control input-sm" uib-datepicker-popup  ng-model="ctrl.user.created_date" is-open="ctrl.popup2.opened" datepicker-options="ctrl.dateOptions" ng-required="true" close-text="Close" />
+							          <span class="input-group-btn">
+							            <button type="button" class="btn btn-default btn-sm" ng-click="ctrl.open2()"><i class="glyphicon glyphicon-calendar"></i></button>
+							          </span>
+							        </div>
+						        </div>
+                            </div>
+        
+                            <div class="row">
+                                <div class="form-actions">
+                                <div class="form-group col-md-6 "></div>
+                                    <div class="form-group col-md-6 ">
+	                                    <input type="submit"  value="{{!ctrl.user.id ? 'Add' : 'Update'}}" class="btn btn-primary btn-sm" ng-disabled="myForm.$invalid || myForm.$pristine">
+	                                    <button type="button" ng-click="ctrl.reset()" class="btn btn-warning btn-sm" ng-disabled="myForm.$pristine">Reset Form</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>  
+            </div>
+            <div class="panel panel-default">
+                <!-- Default panel contents -->
+                <div class="panel-heading"><span class="lead">List of Tasks </span></div>
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>NAME</th>
+                                <th>Task Name</th>
+                                <th>Status</th>
+                                <th>Date</th>
+                                <th>Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="u in ctrl.userdata">
+                                <td>{{u.id}}</td>
+                                <td>{{u.user_name}}</td>
+                                <td>{{u.task_name}}</td>
+                                <td>
+                                <span ng-show="u.task_status == 100">
+	                                <span class="badge badge-success">Completed</span>
+                                </span>
+                                <span ng-show="u.task_status != 100">
+                                    <uib-progressbar class="progress-striped active" value="u.task_status" type="info"><i type="warning">Task Pending by {{u.task_status}} %</i></uib-progressbar>    
+                                </span>                                    
+                                </td>
+                                <td>{{u.created_date}}</td>
+                                <td>
+                                    <button type="button" ng-click="ctrl.editTask(u.id)" class="btn btn-success custom-width">Edit</button>
+                                    <button type="button" ng-click="ctrl.removeTask(u.id)" class="btn btn-danger custom-width">Remove</button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>        
+                    </div>
+                </div>
+            </div>
+        </div>

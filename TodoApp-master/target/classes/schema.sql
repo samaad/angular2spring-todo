@@ -1,0 +1,8 @@
+DROP TABLE IF EXISTS Todos;
+CREATE TABLE Todos (
+  id INT NOT NULL AUTO_INCREMENT,
+  user_name VARCHAR(100) NOT NULL,
+  task_name VARCHAR(100) NOT NULL,
+  task_status INT NOT NULL,
+  created_date DATE NOT NULL,
+  PRIMARY KEY (id));
